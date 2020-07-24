@@ -1,5 +1,5 @@
 import plotly.express as px
-import dash
+from jupyter_dash import JupyterDash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -12,7 +12,7 @@ url = 'https://raw.githubusercontent.com/dirkkoolmees/CO2_emissions_per-region/m
 df = pd.read_csv(url, index_col = 'Year')
 
 # Build App
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = JupyterDash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 app.layout = html.Div([
@@ -66,5 +66,4 @@ def multi_output(region):
 
 
 # Run app
-if __name__ == '__main__':
-    app.run_server(debug = True)
+app.run_server(debug = True)
