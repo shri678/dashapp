@@ -1,5 +1,4 @@
 import plotly.express as px
-from jupyter_dash import JupyterDash
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -68,4 +67,4 @@ def multi_output(region):
 
 # Run app
 if __name__ == '__main__':
-    app.run_server(debug = True)
+    app.run_server()
