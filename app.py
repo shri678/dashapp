@@ -34,10 +34,11 @@ app.layout = html.Div([
         dcc.Graph(id='graph_2'),
     ],style={'display': 'inline-block', 'width': '55%'})
 ])
+
 # Define callback to update graph
 @app.callback(
-    [Output('graph', 'figure'),Output('graph_2', 'figure')],
-    [Input("region", "value")]
+    [dash.dependencies.Output('graph', 'figure'),dash.dependencies.Output('graph_2', 'figure')],
+    [dash.dependencies.Input("region", "value")]
 )
 
 def multi_output(region):
