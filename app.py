@@ -42,8 +42,6 @@ app.layout = html.Div([
 )
 
 def multi_output(region):
-    if region is None:
-        raise PreventUpdate
 
     fig1 = px.line(df, x=df.index, y=region)
     fig2 = px.area(df, x=df.index, y=region)
