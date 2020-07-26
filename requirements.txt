@@ -28,3 +28,4 @@ traitlets==4.3.2
 Werkzeug==0.15.4
 jupyter-dash
 jupyter-client
+plotly_express==0.4.0
