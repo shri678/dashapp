@@ -5,24 +5,24 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 
+url1 = 'https://raw.githubusercontent.com/shri678/DataViz1/master/Module6IPL%20(1).csv'
+df3 = pd.read_csv(url1)
+
+
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-# Load Data
-url = 'https://raw.githubusercontent.com/dirkkoolmees/CO2_emissions_per-region/master/CO2%20Emissions%20per%20region%20-%20Sheet2.csv'
-df = pd.read_csv(url, index_col = 'Year')
 
-# Build App
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 app.layout = html.Div([
-    html.H3("CO2 Emissions from fossil fuels and cement production"),
+    html.H3("IPL"),
         html.Div([
         dcc.Dropdown(
-            id='region', clearable=False,
-            value='North America', options=[
+            id='teams', clearable=False,
+            value='Chennai Super Kings', options=[
                 {'label': c, 'value': c}
-                for c in df.columns
+                for c in df3.columns
             ], multi = True),
     ],style={'display': 'inline', 'width': '15%'}),
         
@@ -31,29 +31,30 @@ app.layout = html.Div([
     ],style={'display': 'inline-block', 'width': '45%'}),
         
         html.Div([
-        dcc.Graph(id='graph_2'),
+       dcc.Graph(id='graph_2'),
     ],style={'display': 'inline-block', 'width': '55%'})
 ])
 
-# Define callback to update graph
+
 @app.callback(
     [dash.dependencies.Output('graph', 'figure'),dash.dependencies.Output('graph_2', 'figure')],
-    [dash.dependencies.Input("region", "value")]
+    [dash.dependencies.Input("teams", "value")]
 )
 
-def multi_output(region):
 
-    fig1 = px.line(df, x=df.index, y=region)
-    fig2 = px.area(df, x=df.index, y=region)
+def multi_output(teams):
+
+    fig1 = px.line(df3, x=df3.index, y=teams)
+    fig2 = px.area(df3, x=df3.index, y=teams)
     
     fig1.update_layout(
-    yaxis_title='Thousand metric tons of C',
+    yaxis_title='IPL',
     showlegend = False
     )
     
     fig2.update_layout(
-    legend_title_text='Region',
-    yaxis_title='Thousand metric tons of C',
+    legend_title_text='teams',
+    yaxis_title='IPL',
     )
 
     fig1.update_xaxes(showspikes=True)
@@ -61,9 +62,5 @@ def multi_output(region):
 
     return fig1, fig2
 
-
-
-
-# Run app
 if __name__ == '__main__':
     app.run_server()
